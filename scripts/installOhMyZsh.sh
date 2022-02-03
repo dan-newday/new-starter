@@ -1,11 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
-DIR_ME=$(realpath $(dirname $0))
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# this script is called by root an must fail if no user is provided
-. ${DIR_ME}/installUtils.sh
-setUserName ${1-""}
-
-CHSH=no  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+THEME="bira"; sed -i s/^ZSH_THEME=".\+"$/ZSH_THEME=\"$THEME\"/g ~/.zshrc && source ~/.zshrc && echo "Edited line in ~/zshrc :" && cat ~/.zshrc | grep -m 1 ZSH_THEME
 

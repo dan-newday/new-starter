@@ -269,6 +269,7 @@ if ($rebootRequired) {
 
     Write-Host("Cleaning up after filthy hack")
     Get-Job | Stop-Job
+	Get-Job | Remove-Job
 }
 
 
@@ -280,32 +281,47 @@ New-Item -ItemType Directory -Force -Path C:\newstarterscripts\config\system | O
 Set-Location C:\newstarterscripts
 
 Write-Host("Downloading scripts ")
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/installUtils.sh?token=GHSAT0AAAAAABRDSLEEUPUCTIKWUDYAKUJ4YQDSPAA" -OutFile "installUtils.sh"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/createUser.sh?token=GHSAT0AAAAAABRDSLEEQ5CG3N4WWZHMAECSYQDSNMA" -OutFile "createUser.sh"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/sudoNoPasswd.sh?token=GHSAT0AAAAAABRDSLEFE3USCECTGHX3YNZYYQDUM2Q" -OutFile "sudoNoPasswd.sh"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/installDocker.sh?token=GHSAT0AAAAAABRDSLEF2HBL6SAC5XHE4424YQDUQJA" -OutFile "installDocker.sh"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/installBasePackages.sh?token=GHSAT0AAAAAABRDSLEEMOIKA6PD3ZCPDZVEYQDUZ6Q" -OutFile "installBasePackages.sh"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/installOhMyZsh.sh?token=GHSAT0AAAAAABRDSLEEAV3V472JJR4BOK72YQD4Z6A" -OutFile "installOhMyZsh.sh"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/installSdkMan.sh?token=GHSAT0AAAAAABRDSLEFXJCLMLY72ZBFJCXSYQD45KA" -OutFile "installSdkMan.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installUtils.sh" -OutFile "installUtils.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/createUser.sh" -OutFile "createUser.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/sudoNoPasswd.sh" -OutFile "sudoNoPasswd.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installDocker.sh" -OutFile "installDocker.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installBasePackages.sh" -OutFile "installBasePackages.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installOhMyZsh.sh" -OutFile "installOhMyZsh.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installSdkMan.sh" -OutFile "installSdkMan.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installBrew.sh" -OutFile "installBrew.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/generateSSHKey.sh" -OutFile "generateSSHKey.sh"
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NewDayStratusJava/new-starter/test_script/scripts/config/system/wsl.conf?token=GHSAT0AAAAAABRDSLEFDLKKP62QH2M7EYL2YQDTLOQ" -OutFile "config/system/wsl.conf"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/config/system/wsl.conf" -OutFile "config/system/wsl.conf"
 
 Write-Host("Create user")
 wsl -d Ubuntu -u root bash -ic "./createUser.sh newday ubuntu"
+
 Write-Host("Passwordless sudo")
 wsl -d Ubuntu -u root bash -ic "./sudoNoPasswd.sh newday"
+
 Write-Host("Install base packages")
 wsl -d Ubuntu -u root bash -ic "./installBasePackages.sh"
+
+Write-Host("Install OhMyZsh")
+wsl -d Ubuntu -u newday bash -ic "./installOhMyZsh.sh"
+
 Write-Host("Install Docker")
 wsl -d Ubuntu -u root bash -ic "./installDocker.sh"
+
 Write-Host("Install sdkman")
-wsl -d Ubuntu -u root bash -ic "./installSdkMan.sh"
-# Write-Host("Install OhMyZsh")
-# wsl -d Ubuntu -u root bash -ic "./installOhMyZsh.sh"
+wsl -d Ubuntu -u newday bash -ic "./installSdkMan.sh"
+
+Write-Host("Install homebrew")
+wsl -d Ubuntu -u newday bash -ic "./installBrew.sh"
+
+Write-Host("Generating SSH Key")
+wsl -d Ubuntu -u newday bash -ic "./generateSSHKey.sh"
 
 Write-Host("Cleaning up")
 Set-Location C:\
-Remove-Item -r C:\newstarterscripts
+# Remove-Item -r C:\newstarterscripts -Force
 
 Write-Host("Restarting wsl")
 wsl --shutdown
+
+Write-Host("And we are done!")

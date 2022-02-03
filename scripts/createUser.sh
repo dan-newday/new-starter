@@ -11,7 +11,7 @@ OS_TYPE=${2-"ubuntu"}
 createMainUser () {
   verifyUserName
   if [[ $(cat /etc/passwd | grep ${USERNAME} | wc -l) == 0 ]]; then
-    useradd -m -s /bin/bash ${USERNAME}
+    useradd -m -s /bin/zsh ${USERNAME}
   fi
 
   # add to sudo group

@@ -18,9 +18,13 @@ VERSION_DOCKER_COMPOSE="v2.1.1"
 if [[ ! -d ~/.docker/cli-plugins ]]; then
   mkdir -p ~/.docker/cli-plugins
 fi
-curl -fSL https://github.com/docker/compose/releases/download/${VERSION_DOCKER_COMPOSE}/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
-chmod +x ~/.docker/cli-plugins/docker-compose
 
-echo "\n # Filthy hack to get docker started in wsl in a more reliable way" >> /home/newday/.bashrc
-echo "sudo service docker start" >> /home/newday/.bashrc
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo sudo chmod +x /usr/local/bin/docker-compose
+
+echo "# Filthy hack to get docker started in wsl in a more reliable way" >> /home/newday/.bashrc
+echo "sudo service docker start >/dev/null 2>&1" >> /home/newday/.bashrc
+
+echo "# Filthy hack to get docker started in wsl in a more reliable way" >> /home/newday/.zshrc
+echo "sudo service docker start >/dev/null 2>&1" >> /home/newday/.zshrc
 
