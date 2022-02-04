@@ -4,3 +4,5 @@
 
 sudo apt install -y build-essential
 
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/newday/.zprofile
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
