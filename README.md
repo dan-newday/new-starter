@@ -29,6 +29,8 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 - Installs Docker.
 - Installs OhMyZSH.
 - Installs sdkman and OpenJDK 11.0.12.
+- Installs brew
+- Installs minikube
 - Generates 4096 RSA keypair for use wih github.
 
 
