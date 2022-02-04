@@ -289,6 +289,8 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installOhMyZsh.sh" -OutFile "installOhMyZsh.sh"
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installSdkMan.sh" -OutFile "installSdkMan.sh"
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installBrew.sh" -OutFile "installBrew.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/installMinikube.sh" -OutFile "installMinikube.sh"
+
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/generateSSHKey.sh" -OutFile "generateSSHKey.sh"
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dan-newday/new-starter/master/scripts/config/system/wsl.conf" -OutFile "config/system/wsl.conf"
@@ -313,6 +315,9 @@ wsl -d Ubuntu -u newday bash -ic "./installSdkMan.sh"
 
 Write-Host("Install homebrew")
 wsl -d Ubuntu -u newday bash -ic "./installBrew.sh"
+
+Write-Host("Install minikube")
+wsl -d Ubuntu -u newday bash -ic "./installMinikube.sh"
 
 Write-Host("Generating SSH Key")
 wsl -d Ubuntu -u newday bash -ic "./generateSSHKey.sh"
