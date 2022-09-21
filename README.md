@@ -1,6 +1,3 @@
-# Welcome to PIMS!
-
-This repo is for bootstrapping a wsl dev environment we can use for jCard/pimms development
 
 ## Prerequisites
 
